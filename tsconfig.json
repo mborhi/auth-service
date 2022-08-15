@@ -21,7 +21,9 @@
         }
     },
     "include": [
-        "./"
+        "./src/**/*",
+        "./tests/**/*",
+        "./endpoints.config.ts"
     ],
     "exclude": [
         "node_modules"
