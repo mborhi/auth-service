@@ -20,6 +20,14 @@ const baseURL = endpointsConfig.SpotifyAPIBaseURL;
  */
 export const getAccessToken = async (session_id: string) => {
     const token: SpotifyToken = JSON.parse(await redisClient.get(session_id));
+    if (token === null) {
+        return {
+            error: {
+                status: 404,
+                message: "No token associated with given session id"
+            }
+        }
+    }
     if (Date.now() >= token.expires_at) {
         // make request to get new token
         const newToken = await refreshToken(token);

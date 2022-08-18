@@ -8,4 +8,5 @@ export default {
     ClientId: process.env.CLIENT_ID ?? '',
     ClientSecret: process.env.CLIENT_SECRET ?? '',
     RedirectUri: process.env.REDIRECT_URI ?? '',
+    APIGatewayURL: process.env.API_GATEWAY_URL ?? '',
 }
