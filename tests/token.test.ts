@@ -54,6 +54,17 @@ describe("Retrieve token from database", () => {
         expect(access_token).toEqual(mock_token.access_token);
     });
 
+    it("correctly returns an error message if the there is no token associated with the session id", async () => {
+        const errorJson = {
+            error: {
+                status: 404,
+                message: "No token associated with given session id"
+            }
+        }
+        const result = await getAccessToken(mock_session_id);
+        expect(result).toEqual(errorJson);
+    });
+
     it("returns error object if the Spotify Web API returns an error on token refresh", async () => {
         const mock_error = { error: { status: 401, message: "Invalid refresh token" } };
         mockedFetch.mockReturnValueOnce(Promise.resolve(new Response(
