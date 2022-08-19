@@ -1,12 +1,8 @@
 import Redis from "ioredis";
 import { SpotifyToken } from "../../interfaces";
+import { connectToRedis } from "./redis-utils";
 
-// TODO: make util file to configure this for prod/dev env
-// connect to the Redis client
-const redisClient = new Redis({
-    host: 'localhost',
-    port: 6379 // default Redis port
-});
+const redisClient = connectToRedis();
 
 export const generateState = (length: number): string => {
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

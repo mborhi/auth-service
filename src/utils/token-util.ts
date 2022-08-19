@@ -3,13 +3,9 @@ import Redis from "ioredis";
 import endpointsConfig from "../../endpoints.config";
 import fetch from "node-fetch";
 import { dataIsError, responseIsError } from "./fetch-utils";
+import { connectToRedis } from "./redis-utils";
 
-// TODO: make util file to configure this for prod/dev env
-// connect to the Redis client
-const redisClient = new Redis({
-    host: 'localhost',
-    port: 6379
-});
+const redisClient = connectToRedis();
 
 const baseURL = endpointsConfig.SpotifyAPIBaseURL;
 
