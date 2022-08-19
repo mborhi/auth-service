@@ -5,3 +5,9 @@ export interface SpotifyToken {
     "expires_at": number,
     "refresh_token": string
 }
+export interface ErrorObject {
+    "error": {
+        "status": number
+        "message": string
+    }
+}

@@ -1,4 +1,4 @@
-import { SpotifyToken } from "../../interfaces";
+import { ErrorObject, SpotifyToken } from "../../interfaces";
 import Redis from "ioredis";
 import endpointsConfig from "../../endpoints.config";
 import fetch from "node-fetch";
@@ -14,7 +14,7 @@ const baseURL = endpointsConfig.SpotifyAPIBaseURL;
  * @param session_id the session id of the user requesting the access token
  * @returns the access token
  */
-export const getAccessToken = async (session_id: string) => {
+export const getAccessToken = async (session_id: string): Promise<ErrorObject | string> => {
     const token: SpotifyToken = JSON.parse(await redisClient.get(session_id));
     if (token === null) {
         return {
@@ -28,7 +28,7 @@ export const getAccessToken = async (session_id: string) => {
         // make request to get new token
         const newToken = await refreshToken(token);
         // validate that new token is not error
-        if (dataIsError(newToken)) return newToken;
+        if (dataIsError(newToken)) return newToken as ErrorObject;
         // update redis cache
         redisClient.set(session_id, JSON.stringify(newToken));
         // return the access token
