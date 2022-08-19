@@ -36,7 +36,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/callback', async (req, res) => {
-    console.log('logging in...');
     const code = req.query.code as string || null;
 
     let params = {
@@ -70,6 +69,7 @@ router.get('/callback', async (req, res) => {
     // store with token
     await storeToken(session_id, token);
     // route to API gateway with session id
+    res.redirect('/');
 });
 
 export default router;
