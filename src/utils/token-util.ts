@@ -4,6 +4,7 @@ import endpointsConfig from "../../endpoints.config";
 import fetch from "node-fetch";
 import { dataIsError, responseIsError } from "./fetch-utils";
 import { connectToRedis } from "./redis-utils";
+import { storeToken } from "./login-util";
 
 const redisClient = connectToRedis();
 
@@ -30,7 +31,7 @@ export const getAccessToken = async (session_id: string): Promise<ErrorObject | 
         // validate that new token is not error
         if (dataIsError(newToken)) return newToken as ErrorObject;
         // update redis cache
-        redisClient.set(session_id, JSON.stringify(newToken));
+        await storeToken(session_id, newToken);
         // return the access token
         return newToken.access_token;
     }
