@@ -32,7 +32,6 @@ router.get('/', (req, res) => {
     };
     const url = 'https://accounts.spotify.com/authorize?' + stringify(params);
     res.redirect(url);
-    // res.status(200).send("success");
 });
 
 router.get('/callback', async (req, res) => {
@@ -67,9 +66,10 @@ router.get('/callback', async (req, res) => {
     // create session id
     const session_id = uid.sync(24);
     // store with token
+    console.log('session-id:', session_id);
     await storeToken(session_id, token);
     // route to API gateway with session id
-    res.redirect('/');
+    res.redirect('http://localhost:3000/?' + stringify({ session_id: session_id }));
 });
 
 export default router;

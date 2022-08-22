@@ -8,7 +8,7 @@ import Redis from "ioredis";
 export const connectToRedis = () => {
     try {
         const redisClient = new Redis({
-            host: 'localhost',
+            host: 'redis',
             port: 6379
         });
         return redisClient;

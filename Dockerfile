@@ -20,5 +20,5 @@ COPY .env ./build/
 
 WORKDIR /usr/app/build
 
-EXPOSE 3000
+EXPOSE 3000 8001
 CMD node src/server.js
