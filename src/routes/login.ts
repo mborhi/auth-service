@@ -36,7 +36,6 @@ router.get('/', (req, res) => {
 
 router.get('/callback', async (req, res) => {
     const code = req.query.code as string || null;
-
     let params = {
         code: code,
         redirect_uri: redirect_uri,
@@ -68,7 +67,7 @@ router.get('/callback', async (req, res) => {
     // store with token
     console.log('session-id:', session_id);
     await storeToken(session_id, token);
-    // route to API gateway with session id
+    // route to ui with session id
     res.redirect('http://localhost:3000/?' + stringify({ session_id: session_id }));
 });
 
